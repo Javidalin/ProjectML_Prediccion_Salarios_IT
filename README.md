@@ -14,7 +14,8 @@ Sin embargo, existen muchos factores que influyen en el salario: experiencia, ni
 
 ## Dataset
 
-Los datos utilizados provienen de la encuesta anual de Stack Overflow, una de las mayores fuentes de información sobre desarrolladores a nivel mundial. Las variables seleccionadas incluyen:
+Los datos utilizados provienen de la encuesta anual de Stack Overflow, una de las mayores fuentes de información sobre desarrolladores a nivel mundial. ( https://survey.stackoverflow.co/ )
+Las variables seleccionadas incluyen:
 
 - Tipo de empleo (jornada completa, freelance…)
 - Modalidad de trabajo (remoto, presencial…)
