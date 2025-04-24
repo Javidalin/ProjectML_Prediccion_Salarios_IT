@@ -39,7 +39,9 @@ After training and comparing multiple regression algorithms, the best performanc
 ## Why an R² of 0.60 is a Great Result / Por qué un R² de 0.60 es un Excelente Resultado
 
 An R² of 0.60 means the model explains 60% of salary variation, which is strong for real-world human data. / Un R² de 0.60 significa que el modelo explica el 60% de la variación salarial, lo cual es sólido para datos humanos reales.
+
 External factors like negotiation, company culture, or tech stack are not in the dataset. / Factores externos como la negociación, la cultura de la empresa o el stack tecnológico no están en el dataset.
+
 Reaching 0.60 shows the model captures useful patterns without overfitting. / Alcanzar 0.60 indica que el modelo capta patrones útiles sin sobreajustarse.
 
 
