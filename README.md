@@ -14,7 +14,7 @@ Sin embargo, existen muchos factores que influyen en el salario: experiencia, ni
 
 ## Dataset
 
-Los datos utilizados provienen de la encuesta anual de Stack Overflow, una de las mayores fuentes de información sobre desarrolladores a nivel mundial. ( https://survey.stackoverflow.co/ ) podeis descargar el dataset ultilizado de 2024, tambien se adjunta una muestra del dataset limpio en `/src/data_sample`
+Los datos utilizados provienen de la encuesta anual de Stack Overflow, una de las mayores fuentes de información sobre desarrolladores a nivel mundial. ( https://survey.stackoverflow.co/ ) podeis descargar el dataset publico ultilizado de 2024, tambien se adjunta una muestra del dataset limpio en `/src/data_sample`
 
 Las variables seleccionadas incluyen:
 
