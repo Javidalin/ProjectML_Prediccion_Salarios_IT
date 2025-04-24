@@ -4,17 +4,14 @@ import pandas as pd
 import joblib
 import re
 
-# Cargar el modelo
 @st.cache_resource
 def cargar_modelo():
-    return joblib.load("catboost_model_optimizado.pkl")
+    return joblib.load("./src/models/model.pkl")
 
 modelo = cargar_modelo()
 
-# Título
 st.title("💼 Predicción de Salario Anual en el Sector IT")
 
-# Formulario de entrada
 with st.form("formulario"):
     st.header("Introduce los datos del perfil")
 
@@ -58,7 +55,6 @@ with st.form("formulario"):
 
     enviado = st.form_submit_button("Predecir salario")
 
-# Procesamiento al enviar
 if enviado:
     columnas_modelo = modelo.feature_names_in_
 
