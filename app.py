@@ -5,7 +5,7 @@ import joblib
 
 @st.cache_resource
 def cargar_modelo():
-    return joblib.load("model.pkl")  # contiene (modelo, columnas)
+    return joblib.load("./src/models/model.pkl")  # contiene (modelo, columnas)
 
 modelo, columnas = cargar_modelo()
 
