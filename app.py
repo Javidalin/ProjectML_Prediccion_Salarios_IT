@@ -9,6 +9,18 @@ def cargar_modelo():
 
 modelo, columnas = cargar_modelo()
 
+def normalizar(nombre):
+    return (
+        nombre.strip()
+        .replace(" ", "_")
+        .replace("á", "a")
+        .replace("é", "e")
+        .replace("í", "i")
+        .replace("ó", "o")
+        .replace("ú", "u")
+        .replace("ñ", "n")
+    )
+
 st.title("Predicción de Salario por Rol en el Sector IT")
 
 with st.form("formulario"):
@@ -63,13 +75,13 @@ if enviado:
         "10,000 or more employees"
     ].index(tamano)
 
-    fila[f"tipo_empleo_{tipo_empleo}"] = 1
-    fila[f"trabajo_remoto_{trabajo_remoto}"] = 1
-    fila[f"nivel_educativo_{nivel_educativo}"] = 1
-    fila[f"pais_{pais}"] = 1
+    fila[f"tipo_empleo_{normalizar(tipo_empleo)}"] = 1
+    fila[f"trabajo_remoto_{normalizar(trabajo_remoto)}"] = 1
+    fila[f"nivel_educativo_{normalizar(nivel_educativo)}"] = 1
+    fila[f"pais_{normalizar(pais)}"] = 1
 
     for r in roles:
-        clave = "rol_" + r
+        clave = "rol_" + normalizar(r)
         if clave in fila:
             fila[clave] = 1
 

@@ -2,14 +2,13 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import re
-
+ 
 @st.cache_resource
 def cargar_modelo():
-    return modelo, columnas = joblib.load("./src/models/model.pkl")
-fila = {col: 0 for col in columnas}
+    return joblib.load("./src/models/model.pkl")  # contiene (modelo, columnas)
 
-modelo = cargar_modelo()
+modelo, columnas = cargar_modelo()
+
 st.title("Predicción de Salario por Rol en el Sector IT")
 
 with st.form("formulario"):
@@ -54,7 +53,7 @@ with st.form("formulario"):
     enviado = st.form_submit_button("Predecir")
 
 if enviado:
-    fila = {col: 0 for col in modelo.feature_names_in_}
+    fila = {col: 0 for col in columnas}
     fila["anios_experiencia"] = anios
     fila["tamano_empresa"] = [
         "Just me - I am a freelancer, sole proprietor, etc.",
