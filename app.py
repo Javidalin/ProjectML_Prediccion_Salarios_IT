@@ -6,7 +6,7 @@ import re
 
 @st.cache_resource
 def cargar_modelo():
-    return joblib.load("model.pkl")
+    return joblib.load("./src/models/model.pkl")
 
 modelo = cargar_modelo()
 st.title("Predicción de Salario por Rol en el Sector IT")
