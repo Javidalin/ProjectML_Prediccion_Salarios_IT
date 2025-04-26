@@ -85,10 +85,6 @@ if st.button("Predecir salario"):
     # Asegurar columnas en el orden correcto
     input_df = input_df[variables]
 
-    st.write(type(modelo))
-    st.write(input_df)
-    st.write(input_df.columns)
-
     # Opcional: mostrar input para debug
     st.write(input_df)
 
