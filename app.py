@@ -4,7 +4,7 @@ import numpy as np
 import joblib
 
 # Cargar el modelo entrenado
-model = joblib.load('./src/models/model.pkl')  # Asegúrate de tener este archivo
+model = joblib.load('model.pkl')  # Asegúrate de tener este archivo
 
 # Definir las variables esperadas
 variables = [
