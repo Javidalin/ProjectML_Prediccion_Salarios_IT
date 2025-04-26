@@ -1,90 +1,84 @@
-
 import streamlit as st
 import pandas as pd
+import numpy as np
 import joblib
 
-@st.cache_resource
-def cargar_modelo():
-    return joblib.load("./src/models/model.pkl")  # contiene (modelo, columnas)
+# Cargar el modelo entrenado
+model = joblib.load('./src/models/model.pkl')  # Asegúrate de tener este archivo
 
-modelo, columnas = cargar_modelo()
+# Definir las variables esperadas
+variables = [
+    'AniosExperiencia', 'TamanoEmpresa',
+    'Developer_Full_Stack', 'Developer_Back_End', 'Otro_rol', 'Developer_Front_End',
+    'Developer_Desktop_Enterprise', 'Developer_Mobile', 'Developer_Embedded_Devices',
+    'Data_Engineer', 'Engineering_Manager', 'DevOps_Specialist', 'Data_Scientist_ML',
+    'Investigaci_n_Desarrollo', 'Investigador_Academico', 'Cloud_Infrastructure_Engineer',
+    'Senior_Executive', 'Australia', 'Brazil', 'Canada', 'France', 'Germany', 'India',
+    'Italy', 'Netherlands', 'Otro', 'Poland', 'Spain', 'Sweden', 'Ukraine',
+    'United_Kingdom_of_Great_Britain_and_Northern_Ireland', 'United_States_of_America',
+    'Autonomo', 'JornadaCompleta', 'MediaJornada', 'Hibrido', 'Presencial', 'Remoto',
+    'Doctorado', 'Grado_medio', 'Grado_universitario', 'Master', 'Otro_nivel_educativo',
+    'Primaria', 'Secundaria', 'Universidad_sin_titulo'
+]
 
-def normalizar(nombre):
-    return (
-        nombre.strip()
-        .replace(" ", "_")
-        .replace("á", "a")
-        .replace("é", "e")
-        .replace("í", "i")
-        .replace("ó", "o")
-        .replace("ú", "u")
-        .replace("ñ", "n")
-    )
+# Configurar la página
+st.set_page_config(page_title="Predicción de Salario", page_icon="💰", layout="centered")
+st.title("Predicción de salario por rol")
 
-st.title("Predicción de Salario por Rol en el Sector IT")
+# Entradas del usuario
+st.subheader("Introduce los datos del perfil")
 
-with st.form("formulario"):
-    st.subheader("Introduce los datos del perfil")
+anios_experiencia = st.number_input("Años de experiencia", min_value=0, max_value=50, value=5)
 
-    anios = st.slider("Años de experiencia", 0, 50, 3)
+# Tamaño de la empresa
+tamano_empresa = st.selectbox("Tamaño de la empresa", [
+    '10-19_empleados', '+10000_empleados', '100-499_empleados', '20-99_empleados',
+    '500-999_empleados', '1000-4999_empleados', '5000-9999_empleados'
+])
 
-    tamano = st.selectbox("Tamaño de empresa", [
-        "Just me - I am a freelancer, sole proprietor, etc.",
-        "2 to 9 employees", "10 to 19 employees", "20 to 99 employees",
-        "100 to 499 employees", "500 to 999 employees",
-        "1,000 to 4,999 employees", "5,000 to 9,999 employees",
-        "10,000 or more employees"
-    ])
+# Rol principal
+rol = st.selectbox("Rol principal", [
+    'Developer_Full_Stack', 'Developer_Back_End', 'Developer_Front_End',
+    'Developer_Desktop_Enterprise', 'Developer_Mobile', 'Developer_Embedded_Devices',
+    'Data_Engineer', 'Engineering_Manager', 'DevOps_Specialist', 'Data_Scientist_ML',
+    'Investigaci_n_Desarrollo', 'Investigador_Academico', 'Cloud_Infrastructure_Engineer',
+    'Senior_Executive', 'Otro_rol'
+])
 
-    tipo_empleo = st.selectbox("Tipo de empleo", [
-        "Jornada completa", "Media jornada", "Autónomo", "Estudiante", "Desempleado", "Jubilado", "Otro"
-    ])
+# País
+pais = st.selectbox("País", [
+    'Australia', 'Brazil', 'Canada', 'France', 'Germany', 'India', 'Italy', 'Netherlands',
+    'Poland', 'Spain', 'Sweden', 'Ukraine',
+    'United_Kingdom_of_Great_Britain_and_Northern_Ireland', 'United_States_of_America','Otro'
+])
 
-    trabajo_remoto = st.selectbox("Modalidad de trabajo", [
-        "Remoto", "Presencial", "Híbrido"
-    ])
+# Modalidad de trabajo
+modalidad = st.selectbox("Modalidad de trabajo", ['Autonomo', 'JornadaCompleta', 'MediaJornada'])
 
-    nivel_educativo = st.selectbox("Nivel educativo", [
-        "Primaria", "Secundaria", "Grado medio", "Grado universitario", "Máster",
-        "Doctorado", "Universidad sin título", "Otro"
-    ])
+tipo_trabajo = st.selectbox("Tipo de trabajo", ['Hibrido', 'Presencial', 'Remoto'])
 
-    pais = st.selectbox("País", [
-        "Alemania", "Australia", "Brasil", "Canadá", "España", "Estados Unidos de América",
-        "Fancia", "India", "Italia", "Netherlands", "Polonia", "Reino Unido",
-        "Suecia", "Suiza", "Otro"
-    ])
+# Nivel educativo
+nivel_educativo = st.selectbox("Nivel educativo", [
+    'Doctorado', 'Grado_medio', 'Grado_universitario', 'Master',
+    'Primaria', 'Secundaria', 'Universidad_sin_titulo', 'Otro_nivel_educativo'
+])
 
-    roles = st.multiselect("Rol profesional", [
-        "Desarrollador Full Stack", "Desarrollador Back-End", "Desarrollador Front-End",
-        "Desarrollador Mobile", "Desarrollador de Aplicaciones de Escritorio o Empresariales",
-        "Desarrollador de Sistemas Embebidos", "Científico de Datos / Especialista en ML",
-        "Especialista DevOps", "Manager de Ingeniería", "Otro"
-    ])
+# Botón para predecir
+if st.button("Predecir salario"):
+    # Crear un dataframe de una fila
+    input_data = {var: 0 for var in variables}
 
-    enviado = st.form_submit_button("Predecir")
+    input_data['AniosExperiencia'] = anios_experiencia
+    input_data['TamanoEmpresa'] = tamano_empresa
+    input_data[rol] = 1
+    input_data[pais] = 1
+    input_data[modalidad] = 1
+    input_data[tipo_trabajo] = 1
+    input_data[nivel_educativo] = 1
 
-if enviado:
-    fila = {col: 0 for col in columnas}
-    fila["anios_experiencia"] = anios
-    fila["tamano_empresa"] = [
-        "Just me - I am a freelancer, sole proprietor, etc.",
-        "2 to 9 employees", "10 to 19 employees", "20 to 99 employees",
-        "100 to 499 employees", "500 to 999 employees",
-        "1,000 to 4,999 employees", "5,000 to 9,999 employees",
-        "10,000 or more employees"
-    ].index(tamano)
+    input_df = pd.DataFrame([input_data])
 
-    fila[f"tipo_empleo_{normalizar(tipo_empleo)}"] = 1
-    fila[f"trabajo_remoto_{normalizar(trabajo_remoto)}"] = 1
-    fila[f"nivel_educativo_{normalizar(nivel_educativo)}"] = 1
-    fila[f"pais_{normalizar(pais)}"] = 1
+    # Predicción
+    prediccion = model.predict(input_df)[0]
 
-    for r in roles:
-        clave = "rol_" + normalizar(r)
-        if clave in fila:
-            fila[clave] = 1
-
-    df_pred = pd.DataFrame([fila])
-    pred = modelo.predict(df_pred)[0]
-    st.success(f"💰 Salario estimado: ${int(pred):,} USD")
+    st.success(f"El salario anual estimado es: {prediccion:,.2f} $")

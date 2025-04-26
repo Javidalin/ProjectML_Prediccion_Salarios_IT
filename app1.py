@@ -5,23 +5,23 @@ import joblib
 
 @st.cache_resource
 def cargar_modelo():
-    return joblib.load("./src/models/model.pkl")  # contiene (modelo, columnas)
+    return joblib.load("model.pkl")  # contiene (modelo, columnas)
 
 modelo, columnas = cargar_modelo()
 
-def normalizar(nombre):
+def limpiar_texto(nombre):
     return (
         nombre.strip()
-        .replace(" ", "_")
         .replace("á", "a")
         .replace("é", "e")
         .replace("í", "i")
         .replace("ó", "o")
         .replace("ú", "u")
         .replace("ñ", "n")
+        .replace(" ", "_")
     )
 
-st.title("Predicción de Salario por Rol en el Sector IT")
+st.title("Predicción de salario por rol")
 
 with st.form("formulario"):
     st.subheader("Introduce los datos del perfil")
@@ -50,16 +50,15 @@ with st.form("formulario"):
     ])
 
     pais = st.selectbox("País", [
-        "Alemania", "Australia", "Brasil", "Canadá", "España", "Estados Unidos de América",
-        "Fancia", "India", "Italia", "Netherlands", "Polonia", "Reino Unido",
+        "Alemania", "Australia", "Brasil", "Canadá", "España", "Estados Unidos de America",
+        "Francia", "India", "Italia", "Netherlands", "Polonia", "Reino Unido",
         "Suecia", "Suiza", "Otro"
     ])
 
     roles = st.multiselect("Rol profesional", [
-        "Desarrollador_Full_Stack", "Desarrollador_Back-End", "Desarrollador_Front-End",
-        "Desarrollador Mobile", "Desarrollador_de_Aplicaciones_de_Escritorio_o_Empresariales",
-        "Desarrollador_Mobile", "Desarrollador_de_Sistemas_Embebidos", 
-        "Ingeniero_de_Datos", "Científico de Datos / Especialista en ML",
+        "Desarrollador Full Stack", "Desarrollador Back-End", "Desarrollador Front-End",
+        "Desarrollador Mobile", "Desarrollador de Aplicaciones de Escritorio o Empresariales",
+        "Desarrollador de Sistemas Embebidos", "Científico de Datos / Especialista en ML",
         "Especialista DevOps", "Manager de Ingeniería", "Otro"
     ])
 
@@ -76,13 +75,13 @@ if enviado:
         "10,000 or more employees"
     ].index(tamano)
 
-    fila[f"tipo_empleo_{normalizar(tipo_empleo)}"] = 1
-    fila[f"trabajo_remoto_{normalizar(trabajo_remoto)}"] = 1
-    fila[f"nivel_educativo_{normalizar(nivel_educativo)}"] = 1
-    fila[f"pais_{normalizar(pais)}"] = 1
+    fila[limpiar_texto(tipo_empleo)] = 1
+    fila[limpiar_texto(trabajo_remoto)] = 1
+    fila[limpiar_texto(nivel_educativo)] = 1
+    fila[limpiar_texto(pais)] = 1
 
     for r in roles:
-        clave = "rol_" + normalizar(r)
+        clave = limpiar_texto(r)
         if clave in fila:
             fila[clave] = 1
 
