@@ -3,8 +3,11 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Cargar el modelo entrenado
-model = joblib.load('model.pkl')  # Asegúrate de tener este archivo
+@st.cache_resource
+def cargar_modelo():
+    return joblib.load("./src/models/model.pkl")  # contiene (modelo, columnas)
+
+modelo, columnas = cargar_modelo()
 
 # Definir las variables esperadas
 variables = [
