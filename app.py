@@ -78,6 +78,12 @@ if st.button("Predecir salario"):
 
     input_df = pd.DataFrame([input_data])
 
+    # Asegurar columnas en el orden correcto
+    input_df = input_df[variables]
+
+    # Opcional: mostrar input para debug
+    st.write(input_df)
+
     # Predicción
     prediccion = model.predict(input_df)[0]
 
