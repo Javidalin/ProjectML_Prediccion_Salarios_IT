@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import joblib
 
+# Configurar la página
+st.set_page_config(page_title="Predicción de Salario", page_icon="💰", layout="centered")
+
 @st.cache_resource
 def cargar_modelo():
     return joblib.load("./src/models/model.pkl")  # contiene (modelo, columnas)
@@ -24,8 +27,6 @@ variables = [
     'Primaria', 'Secundaria', 'Universidad_sin_titulo'
 ]
 
-# Configurar la página
-st.set_page_config(page_title="Predicción de Salario", page_icon="💰", layout="centered")
 st.title("Predicción de salario por rol")
 
 # Entradas del usuario
