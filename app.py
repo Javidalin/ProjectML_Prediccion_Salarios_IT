@@ -83,15 +83,15 @@ if st.button("Predecir salario estimado"):
 
     prediccion = modelo.predict(input_df)[0]
 
-    margen_inferior = prediccion * 0.75
-    margen_superior = prediccion * 1.25
+    margen_inferior = prediccion * 0.85
+    margen_superior = prediccion * 1.15
 
     with st.container():
         st.subheader("Resultado de la estimación")
         st.success(f"""
-        El salario anual estimado es: {prediccion:,.2f} $.
+        El salario anual estimado es: {prediccion:,.2f} $ .
         Ten en cuenta que esta es una predicción aproximada basada en tu perfil,
-        y podría variar entre {margen_inferior:,.2f} $** y **{margen_superior:,.2f} $.
+        y podría variar entre {margen_inferior:,.2f} $ y {margen_superior:,.2f} $ .
         """)
 
         st.caption("Esta estimación puede verse afectada por factores externos como localización exacta, políticas de empresa, demanda del mercado o experiencia práctica.")
