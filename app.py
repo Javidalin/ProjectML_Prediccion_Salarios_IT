@@ -85,7 +85,7 @@ if st.button("Predecir salario"):
     # Asegurar columnas en el orden correcto
     input_df = input_df[variables]
 
-    st.write(type(model))
+    st.write(type(modelo))
     st.write(input_df)
     st.write(input_df.columns)
 
@@ -93,6 +93,6 @@ if st.button("Predecir salario"):
     st.write(input_df)
 
     # Predicción
-    prediccion = model.predict(input_df)[0]
+    prediccion = modelo.predict(input_df)[0]
 
     st.success(f"El salario anual estimado es: {prediccion:,.2f} $")
