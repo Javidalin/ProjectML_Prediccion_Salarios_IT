@@ -115,15 +115,15 @@ if st.button("Predecir salario estimado"):
 
     prediccion = modelo.predict(input_df)[0]
 
-    margen_inferior = prediccion * 0.85
-    margen_superior = prediccion * 1.15
+    margen_inferior = prediccion * 0.90
+    margen_superior = prediccion * 1.10
 
-with st.container():
-    st.subheader("Resultado de la estimación")
+    with st.container():
+        st.subheader("Resultado de la estimación")
 
-    st.success(f"El salario anual estimado es: {prediccion:,.2f} $. Puede variar entre {margen_inferior:,.2f} $ y {margen_superior:,.2f} $, dependiendo de factores externos.")
+        st.success(f"El salario anual estimado es: {prediccion:,.2f} \\$ . Puede variar entre {margen_inferior:,.2f} \\$ y {margen_superior:,.2f} \\$, dependiendo de factores externos.")
 
-    st.caption("Recuerda que esta estimación depende de localización, experiencia real, demanda del mercado y políticas de empresa.")
+        st.caption("Recuerda que esta estimación depende de negociación, localización, experiencia real, demanda del mercado y políticas de empresa.")
 
 with st.container():
     st.markdown("---")
