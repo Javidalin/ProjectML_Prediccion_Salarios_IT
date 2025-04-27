@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# Configurar la página
 st.set_page_config(page_title="Predicción de Salario", page_icon="💰", layout="centered")
 
 @st.cache_resource
@@ -12,7 +11,6 @@ def cargar_modelo():
 
 modelo, columnas = cargar_modelo()
 
-# Definir las variables esperadas
 variables = [
     'AniosExperiencia', 'TamanoEmpresa',
     'Developer_Full_Stack', 'Developer_Back_End', 'Otro_rol', 'Developer_Front_End',
@@ -31,7 +29,7 @@ st.title("Predicción de salario por perfil IT")
 
 st.info("Completa el siguiente formulario para obtener una estimación de tu salario anual basado en tus características profesionales.")
 
-# Entradas del usuario
+# Inputs
 st.subheader("Datos del perfil")
 
 col1, col2 = st.columns(2)
@@ -39,34 +37,68 @@ col1, col2 = st.columns(2)
 with col1:
     anios_experiencia = st.number_input("Años de experiencia", min_value=0, max_value=50, value=5)
     tamano_empresa = st.selectbox("Tamaño de la empresa", [
-        '10-19_empleados', '+10000_empleados', '100-499_empleados', '20-99_empleados',
-        '500-999_empleados', '1000-4999_empleados', '5000-9999_empleados'
-    ])
+    '10-19_empleados',
+    '100-499_empleados',
+    '1000-4999_empleados',
+    '20-99_empleados',
+    '500-999_empleados',
+    '5000-9999_empleados',
+    '+10000_empleados',
+])
     modalidad = st.selectbox("Modalidad de trabajo", ['Autonomo', 'JornadaCompleta', 'MediaJornada'])
 
 with col2:
     rol = st.selectbox("Rol principal", [
-        'Developer_Full_Stack', 'Developer_Back_End', 'Developer_Front_End',
-        'Developer_Desktop_Enterprise', 'Developer_Mobile', 'Developer_Embedded_Devices',
-        'Data_Engineer', 'Engineering_Manager', 'DevOps_Specialist', 'Data_Scientist_ML',
-        'Investigaci_n_Desarrollo', 'Investigador_Academico', 'Cloud_Infrastructure_Engineer',
-        'Senior_Executive', 'Otro_rol'
-    ])
+    'Cloud_Infrastructure_Engineer',
+    'Data_Engineer',
+    'Data_Scientist_ML',
+    'Developer_Back_End',
+    'Developer_Desktop_Enterprise',
+    'Developer_Embedded_Devices',
+    'Developer_Front_End',
+    'Developer_Full_Stack',
+    'Developer_Mobile',
+    'DevOps_Specialist',
+    'Engineering_Manager',
+    'Investigaci_n_Desarrollo',
+    'Investigador_Academico',
+    'Senior_Executive',
+    'Otro_rol'
+])
     pais = st.selectbox("País", [
-        'Australia', 'Brazil', 'Canada', 'France', 'Germany', 'India', 'Italy', 'Netherlands',
-        'Poland', 'Spain', 'Sweden', 'Ukraine', 'United_Kingdom_of_Great_Britain_and_Northern_Ireland',
-        'United_States_of_America','Otro'
+    'Australia',
+    'Brazil',
+    'Canada',
+    'France',
+    'Germany',
+    'India',
+    'Italy',
+    'Netherlands',
+    'Poland',
+    'Spain',
+    'Sweden',
+    'Ukraine',
+    'United_Kingdom_of_Great_Britain_and_Northern_Ireland',
+    'United_States_of_America',
+    'Otro'
     ])
-    tipo_trabajo = st.selectbox("Tipo de trabajo", ['Hibrido', 'Presencial', 'Remoto'])
+
+    tipo_trabajo = st.selectbox("Tipo de trabajo", ['Presencial', 'Hibrido', 'Remoto'])
 
 nivel_educativo = st.selectbox("Nivel educativo", [
-    'Doctorado', 'Grado_medio', 'Grado_universitario', 'Master',
-    'Primaria', 'Secundaria', 'Universidad_sin_titulo', 'Otro_nivel_educativo'
+    'Primaria',
+    'Secundaria',
+    'Grado_medio',
+    'Universidad_sin_titulo',
+    'Grado_universitario',
+    'Master',
+    'Doctorado',
+    'Otro_nivel_educativo'
 ])
 
 st.markdown("---")
 
-# Botón para predecir
+# Predicción
 if st.button("Predecir salario estimado"):
     input_data = {var: 0 for var in variables}
 
@@ -88,11 +120,11 @@ if st.button("Predecir salario estimado"):
 
 with st.container():
     st.subheader("Resultado de la estimación")
-    
-    texto_prediccion = f"""El salario anual estimado es: **{prediccion:,.2f} $**.  
-Ten en cuenta que esta es una predicción aproximada basada en tu perfil,  
-y podría variar entre **{margen_inferior:,.2f} $** y **{margen_superior:,.2f} $**."""
-    
-    st.success(texto_prediccion)
 
-    st.caption("Esta estimación puede verse afectada por factores externos como localización exacta, políticas de empresa, demanda del mercado o experiencia práctica.")
+    st.success(f"El salario anual estimado es: {prediccion:,.2f} $. Puede variar entre {margen_inferior:,.2f} $ y {margen_superior:,.2f} $, dependiendo de factores externos.")
+
+    st.caption("Recuerda que esta estimación depende de localización, experiencia real, demanda del mercado y políticas de empresa.")
+
+with st.container():
+    st.markdown("---")
+    st.caption("🔹 API creada por Javier Vidal.")
