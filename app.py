@@ -38,14 +38,14 @@ with col1:
     anios_experiencia = st.number_input("Años de experiencia", min_value=0, max_value=50, value=5)
     tamano_empresa = st.selectbox("Tamaño de la empresa", [
     '10-19_empleados',
-    '100-499_empleados',
-    '1000-4999_empleados',
     '20-99_empleados',
+    '100-499_empleados',
     '500-999_empleados',
+    '1000-4999_empleados',
     '5000-9999_empleados',
     '+10000_empleados',
 ])
-    modalidad = st.selectbox("Modalidad de trabajo", ['Autonomo', 'JornadaCompleta', 'MediaJornada'])
+    modalidad = st.selectbox("Modalidad de trabajo", ['JornadaCompleta', 'MediaJornada', 'Autonomo'])
 
 with col2:
     rol = st.selectbox("Rol principal", [
