@@ -2,7 +2,7 @@
 # Annual Salary Prediction in the IT Sector 🇬🇧 / Predicción de Salario Anual en el Sector IT 🇪🇸
 
                         https://prediccionsalario.streamlit.app/
-                                  ^^^^^^^^^^^^^^  
+
 This project aims to build a Machine Learning model capable of predicting the **annual salary** of IT professionals based on a series of personal and work-related characteristics extracted from real surveys. / Este proyecto tiene como objetivo construir un modelo de Machine Learning capaz de predecir el **salario anual** de profesionales del sector tecnológico a partir de una serie de características personales y laborales extraídas de encuestas reales.
 
 ## Problem to be Solved / Problema que se quiere resolver
